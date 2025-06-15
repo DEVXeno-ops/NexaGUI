@@ -1,6 +1,6 @@
-# Eye-Friendly NW.js GUI
+# NexaGUI
 
-A modern, eye-friendly, and extensible NW.js GUI with customizable themes, background, sound, and language settings.
+A modern, eye-friendly, and extensible NexaGUI with customizable themes, background, sound, and language settings.
 
 ## Features
 - Light/Dark mode (default: dark) with smooth transitions
