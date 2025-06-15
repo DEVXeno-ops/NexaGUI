@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Eye-friendly, extensible NexaGUI GUI with customizable theme, background, sound, and language settings">
+  <title>NexaGUI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="particles-js"></div>
+  <div id="loading" class="loading">
+    <div class="spinner"></div>
+  </div>
+  <header>
+    <button class="menu-button" aria-label="Toggle Language" data-action="toggleLang">
+      <i class="fas fa-globe"></i>
+    </button>
+    <h1 id="title">NexaGUI</h1>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <div class="tab active" id="tab-home" role="tab" aria-selected="true" tabindex="0" data-tab="home">
+      <i class="fas fa-home"></i> หน้าหลัก
+    </div>
+    <div class="tab" id="tab-settings" role="tab" aria-selected="false" tabindex="0" data-tab="settings">
+      <i class="fas fa-cog"></i> ตั้งค่า
+    </div>
+    <div class="tab" id="tab-about" role="tab" aria-selected="false" tabindex="0" data-tab="about">
+      <i class="fas fa-info-circle"></i> เกี่ยวกับ
+    </div>
+  </nav>
+
+  <main>
+    <section id="home" class="tab-content active" role="tabpanel" aria-labelledby="tab-home">
+      <h2 id="welcome">🔥 ยินดีต้อนรับ! 🔥</h2>
+      <button class="ripple" data-action="playSoundAndAlert">
+        <i class="fas fa-star"></i> คลิกเลย!
+      </button>
+    </section>
+
+    <section id="settings" class="tab-content" role="tabpanel" aria-labelledby="tab-settings">
+      <h2 id="setting-title">การตั้งค่า</h2>
+
+      <label id="lang-label" for="lang">ภาษา:</label>
+      <select id="lang" data-action="setLang">
+        <option value="th">ไทย</option>
+        <option value="en">English</option>
+      </select>
+
+      <label id="theme-label" for="theme">ธีม:</label>
+      <select id="theme" data-action="setTheme">
+        <option value="dark">Dark Mode</option>
+        <option value="light">Light Mode</option>
+      </select>
+
+      <label id="bg-label" for="bg">เปลี่ยนพื้นหลัง:</label>
+      <label class="custom-file-input" for="bg">เลือกภาพ</label>
+      <input id="bg" type="file" accept="image/*" data-action="changeBackground">
+      <span id="bg-error" class="error-message">กรุณาเลือกไฟล์ภาพที่ถูกต้อง</span>
+
+      <label id="sound-label" for="sound">เสียงกดปุ่ม:</label>
+      <label class="custom-file-input" for="sound">เลือกเสียง</label>
+      <input id="sound" type="file" accept="audio/*" data-action="setClickSound">
+      <span id="sound-error" class="error-message">กรุณาเลือกไฟล์เสียงที่ถูกต้อง</span>
+    </section>
+
+    <section id="about" class="tab-content" role="tabpanel" aria-labelledby="tab-about">
+      <h2><i class="fas fa-info-circle"></i> NexaGUI </h2>
+      <p>สร้างโดยนักพัฒนามือโปร 💻<br>ออกแบบเพื่อความสบายตาและปรับแต่งได้ 🌐🎵🖼</p>
+      <p>เวอร์ชัน: 1.0.0 | Powered by NexaGUI</p>
+    </section>
+  </main>
+
+  <audio id="clickSound" preload="auto"></audio>
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

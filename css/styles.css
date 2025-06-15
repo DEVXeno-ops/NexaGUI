@@ -1,0 +1,332 @@
+:root {
+  --transition-speed: 0.3s;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --error-color: #ff6b6b;
+}
+
+[data-theme="dark"] {
+  --primary-color: #40c4ff;
+  --secondary-color: #263238;
+  --accent-color: #37474f;
+  --font-color: #eceff1;
+  --hover-color: #455a64;
+  --highlight-color: #ff8a65;
+  --background-gradient: linear-gradient(135deg, #263238 0%, #37474f 100%);
+  --card-bg: rgba(255, 255, 255, 0.08);
+  --header-bg: rgba(38, 50, 56, 0.85);
+}
+
+[data-theme="light"] {
+  --primary-color: #0288d1;
+  --secondary-color: #fafafa;
+  --accent-color: #eeeeee;
+  --font-color: #263238;
+  --hover-color: #e0e0e0;
+  --highlight-color: #f06292;
+  --background-gradient: linear-gradient(135deg, #ffffff 0%, #eceff1 100%);
+  --card-bg: rgba(0, 0, 0, 0.05);
+  --header-bg: rgba(255, 255, 255, 0.85);
+  --shadow-color: rgba(0, 0, 0, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--background-gradient);
+  color: var(--font-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  transition: all var(--transition-speed) ease;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--background-gradient);
+  background-size: 200% 200%;
+  animation: gradientShift 20s ease infinite;
+  opacity: 0.15;
+  z-index: -1;
+}
+
+#particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
+
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--secondary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.loading.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--primary-color);
+  border-top: 4px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: var(--header-bg);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 16px var(--shadow-color);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.menu-button {
+  font-size: 1.6rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: var(--font-color);
+  transition: transform var(--transition-speed), color 0.2s ease;
+}
+
+.menu-button:hover,
+.menu-button:focus {
+  transform: scale(1.1);
+  color: var(--highlight-color);
+  outline: none;
+}
+
+h1 {
+  font-size: 1.6rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 0.5rem;
+  background: var(--accent-color);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tab {
+  padding: 0.8rem 2rem;
+  cursor: pointer;
+  color: var(--font-color);
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all var(--transition-speed) ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tab:hover,
+.tab.active,
+.tab:focus {
+  background: var(--hover-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.tab:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.tab-content {
+  display: none;
+  padding: 2rem;
+  text-align: center;
+  background: var(--card-bg);
+  border-radius: 12px;
+  margin: 1.5rem 2rem;
+  box-shadow: 0 8px 24px var(--shadow-color);
+}
+
+.tab-content.active {
+  display: block;
+}
+
+button,
+select {
+  margin: 1rem auto;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 12px;
+  border: none;
+  display: block;
+  width: fit-content;
+  transition: all var(--transition-speed) ease;
+}
+
+button {
+  background: var(--primary-color);
+  color: var(--font-color);
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+button:hover,
+button:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 212, 255, 0.5);
+  outline: none;
+}
+
+.ripple {
+  position: relative;
+}
+
+.ripple::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 50%;
+  transform: scale(1);
+  transform-origin: center;
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(15);
+    opacity: 1;
+  }
+}
+
+select {
+  background: var(--secondary-color);
+  color: var(--font-color);
+  padding: 0.8rem;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+select:focus {
+  outline: 2px solid var(--primary-color);
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-input {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background: var(--secondary-color);
+  color: var(--font-color);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+  margin: 1rem auto;
+}
+
+.custom-file-input:hover,
+.custom-file-input:focus {
+  background: var(--hover-color);
+  outline: none;
+}
+
+label {
+  display: block;
+  margin: 1rem auto 0.5rem;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.error-message {
+  color: var(--error-color);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  display: none;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@media (max-width: 600px) {
+  header {
+    padding: 1rem;
+  }
+
+  .tabs {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tab {
+    width: 100%;
+    text-align: center;
+  }
+
+  .tab-content {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}

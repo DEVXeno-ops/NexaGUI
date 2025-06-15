@@ -1,0 +1,13 @@
+{
+  "name": "eye-friendly-nwjs-gui",
+  "version": "1.0.0",
+  "main": "index.html",
+  "window": {
+    "title": "Eye-Friendly NW.js GUI",
+    "width": 800,
+    "height": 600,
+    "min_width": 400,
+    "min_height": 300
+  },
+  "dependencies": {}
+}
