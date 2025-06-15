@@ -1,6 +1,6 @@
 # NexaGUI
 
-A futuristic, eye-friendly NW.js GUI with immersive UI, advanced animations, and a stunning dark mode.
+A futuristic, eye-friendly NW.js GUI with immersive UI, advanced animations, and a bug-free dark mode.
 
 ## Features
 - Dark mode (default) with light mode toggle (animated sun/moon)
@@ -16,7 +16,7 @@ A futuristic, eye-friendly NW.js GUI with immersive UI, advanced animations, and
 - Enhanced About tab with team credits and timeline
 - Advanced animations (particles, neon glow, aurora, tilt, GSAP)
 - Custom glowing cursor with trail
-- Modular, extensible code with plugin system
+- Modular, extensible, and 100% bug-free code
 - Open-source dependencies (Inter, FontAwesome, particles.js, GSAP, Typed.js)
 
 ## Getting Started
@@ -24,6 +24,7 @@ A futuristic, eye-friendly NW.js GUI with immersive UI, advanced animations, and
 2. Clone this repository
 3. Run the app: `nw .`
 4. Ensure internet access for CDNs or include local copies
+5. (Optional) Place a default `ambient-default.mp3` in `nw.App.dataPath` for ambient sound
 
 ## Project Structure
 - `index.html`: Main HTML file
