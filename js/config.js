@@ -1,47 +1,61 @@
-// Configuration file for language data and settings
 const CONFIG = {
   langData: {
     th: {
-      title: 'เมนู GUI',
-      welcome: '🔥 ยินดีต้อนรับ! 🔥',
+      title: 'NexaGUI',
+      welcome: '🔥 ยินดีต้อนรับสู่ NexaGUI! 🔥',
       'tab-home': 'หน้าหลัก',
       'tab-settings': 'ตั้งค่า',
       'tab-about': 'เกี่ยวกับ',
       'setting-title': 'การตั้งค่า',
       'lang-label': 'ภาษา:',
-      'theme-label': 'ธีม:',
-      'bg-label': 'เปลี่ยนพื้นหลัง:',
-      'sound-label': 'เสียงกดปุ่ม:'
+      'sound-toggle-label': 'เปิด/ปิดเสียง:',
+      'volume-label': 'ระดับเสียง:',
+      'ambient-label': 'เสียงแอมเบียนท์:',
+      'bg-label': 'เพิ่มพื้นหลัง:',
+      'sound-label': 'เสียงกดปุ่ม:',
+      'export-settings': 'ส่งออกการตั้งค่า',
+      'import-settings': 'นำเข้าการตั้งค่า'
     },
     en: {
-      title: 'GUI Menu',
-      welcome: '🔥 Welcome! 🔥',
+      title: 'NexaGUI',
+      welcome: '🔥 Welcome to NexaGUI! 🔥',
       'tab-home': 'Home',
       'tab-settings': 'Settings',
       'tab-about': 'About',
       'setting-title': 'Settings',
       'lang-label': 'Language:',
-      'theme-label': 'Theme:',
-      'bg-label': 'Background Image:',
-      'sound-label': 'Click Sound:'
+      'sound-toggle-label': 'Sound On/Off:',
+      'volume-label': 'Volume:',
+      'ambient-label': 'Ambient Sound:',
+      'bg-label': 'Add Background:',
+      'sound-label': 'Click Sound:',
+      'export-settings': 'Export Settings',
+      'import-settings': 'Import Settings'
     }
   },
   defaultLang: 'th',
   defaultTheme: 'dark',
   particlesConfig: {
     particles: {
-      number: { value: 50, density: { enable: true, value_area: 800 } },
-      color: { value: '#40c4ff' },
+      number: { value: 100, density: { enable: true, value_area: 800 } },
+      color: { value: '#5b21b6' },
       shape: { type: 'circle' },
-      opacity: { value: 0.3, random: true },
-      size: { value: 3, random: true },
-      line_linked: { enable: false },
-      move: { enable: true, speed: 0.5, direction: 'none', random: true }
+      opacity: { value: 0.6, random: true },
+      size: { value: 2.5, random: true },
+      line_linked: { enable: true, distance: 100, color: '#5b21b6', opacity: 0.4, width: 1 },
+      move: { enable: true, speed: 2, direction: 'none', random: true }
     },
     interactivity: {
       detect_on: 'canvas',
       events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: true, mode: 'push' } },
-      modes: { grab: { distance: 200 }, push: { particles_nb: 2 } }
+      modes: { grab: { distance: 180, line_linked: { opacity: 0.8 } }, push: { particles_nb: 5 } }
     }
-  }
+  },
+  typedConfig: {
+    strings: ['🔥 ยินดีต้อนรับสู่ NexaGUI! 🔥', 'สัมผัส UI สุดล้ำแห่งอนาคต', 'ปรับแต่งได้ตามใจคุณ'],
+    typeSpeed: 50,
+    backSpeed: 30,
+    loop: true
+  },
+  wallpapers: [] // Populated dynamically
 };

@@ -1,11 +1,11 @@
 {
-  "name": "eye-friendly-nwjs-gui",
+  "name": "NexaGUI",
   "version": "1.0.0",
   "main": "index.html",
   "window": {
-    "title": "Eye-Friendly NW.js GUI",
-    "width": 800,
-    "height": 600,
+    "title": "NexaGUI",
+    "width": 1000,
+    "height": 650,
     "min_width": 400,
     "min_height": 300
   },

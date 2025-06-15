@@ -1,43 +1,52 @@
 # NexaGUI
 
-A modern, eye-friendly, and extensible NexaGUI with customizable themes, background, sound, and language settings.
+A futuristic, eye-friendly NW.js GUI with immersive UI, advanced animations, and a stunning dark mode.
 
 ## Features
-- Light/Dark mode (default: dark) with smooth transitions
+- Dark mode (default) with light mode toggle (animated sun/moon)
 - Language support (Thai/English)
-- Custom background image and click sound
-- Animated effects (particles, ripple, GSAP transitions)
-- Modular code structure for easy maintenance
-- Open-source dependencies (Inter font, FontAwesome, particles.js, GSAP)
-- Extensible plugin system for adding new features
+- Dynamic wallpaper carousel with parallax effect
+- Custom click and ambient sounds with volume control
+- Settings export/import with file system persistence
+- Real-time clock with date (Asia/Bangkok)
+- Sidebar navigation and quick settings panel
+- Notification center for user actions
+- System tray integration (NW.js)
+- Animated welcome message (Typed.js)
+- Enhanced About tab with team credits and timeline
+- Advanced animations (particles, neon glow, aurora, tilt, GSAP)
+- Custom glowing cursor with trail
+- Modular, extensible code with plugin system
+- Open-source dependencies (Inter, FontAwesome, particles.js, GSAP, Typed.js)
 
 ## Getting Started
 1. Install NW.js: `npm install -g nw`
 2. Clone this repository
 3. Run the app: `nw .`
-4. Ensure internet access for CDNs or include local copies of dependencies
+4. Ensure internet access for CDNs or include local copies
 
 ## Project Structure
 - `index.html`: Main HTML file
 - `css/styles.css`: Stylesheet
 - `js/app.js`: Core application logic
-- `js/config.js`: Configuration (language data, defaults)
-- `js/plugins.js`: Plugin system for extensibility
+- `js/config.js`: Configuration (language, themes, particles)
+- `js/plugins.js`: Plugin system (clock, typed, wallpapers, notifications)
 - `assets/`: Static assets (e.g., icons)
 - `package.json`: NW.js configuration
 - `README.md`: Documentation
 
 ## Extending the App
-- **Add a new tab**: Create a new tab and content section in `index.html`, update `app.js` to handle the new tab.
-- **Add a new language**: Update `CONFIG.langData` in `config.js`.
-- **Add a plugin**: Register a new plugin in `plugins.js` (see example).
-- **Customize animations**: Modify GSAP animations in `app.js` or add new ones in `styles.css`.
+- **New Tab**: Add to `index.html` and handle in `app.js` via `data-tab`.
+- **New Language**: Update `CONFIG.langData` in `config.js`.
+- **New Plugin**: Register in `plugins.js` (see examples).
+- **Custom Animations**: Modify GSAP in `app.js` or CSS in `styles.css`.
 
 ## Dependencies
-- Inter font (Google Fonts, OFL)
+- Inter font (OFL, Google Fonts)
 - FontAwesome (MIT)
 - particles.js (MIT)
-- GSAP (MIT for non-commercial use)
+- GSAP (MIT for non-commercial)
+- Typed.js (MIT)
 
 ## License
 MIT

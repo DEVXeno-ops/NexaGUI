@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Eye-friendly, extensible NexaGUI GUI with customizable theme, background, sound, and language settings">
+  <meta name="description" content="NexaGUI: A futuristic, eye-friendly NW.js GUI with immersive UI and dark mode">
   <title>NexaGUI</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -14,29 +14,40 @@
   <div id="loading" class="loading">
     <div class="spinner"></div>
   </div>
-  <header>
-    <button class="menu-button" aria-label="Toggle Language" data-action="toggleLang">
+  <div id="quick-settings" class="quick-settings">
+    <button class="quick-btn glow" data-action="toggleTheme" aria-label="Toggle Theme">
+      <i class="fas fa-moon"></i>
+    </button>
+    <button class="quick-btn glow" data-action="toggleLang" aria-label="Toggle Language">
       <i class="fas fa-globe"></i>
     </button>
+    <button class="quick-btn glow" data-action="toggleSound" aria-label="Toggle Sound">
+      <i class="fas fa-volume-up"></i>
+    </button>
+    <button class="quick-btn glow" data-action="toggleAmbient" aria-label="Toggle Ambient Sound">
+      <i class="fas fa-headphones"></i>
+    </button>
+  </div>
+  <aside class="sidebar">
     <h1 id="title">NexaGUI</h1>
-  </header>
-
-  <nav class="tabs" role="tablist">
-    <div class="tab active" id="tab-home" role="tab" aria-selected="true" tabindex="0" data-tab="home">
-      <i class="fas fa-home"></i> หน้าหลัก
-    </div>
-    <div class="tab" id="tab-settings" role="tab" aria-selected="false" tabindex="0" data-tab="settings">
-      <i class="fas fa-cog"></i> ตั้งค่า
-    </div>
-    <div class="tab" id="tab-about" role="tab" aria-selected="false" tabindex="0" data-tab="about">
-      <i class="fas fa-info-circle"></i> เกี่ยวกับ
-    </div>
-  </nav>
+    <nav class="sidebar-nav" role="tablist">
+      <div class="sidebar-item active glow" id="tab-home" role="tab" aria-selected="true" tabindex="0" data-tab="home">
+        <i class="fas fa-home"></i> <span>หน้าหลัก</span>
+      </div>
+      <div class="sidebar-item glow" id="tab-settings" role="tab" aria-selected="false" tabindex="0" data-tab="settings">
+        <i class="fas fa-cog"></i> <span>ตั้งค่า</span>
+      </div>
+      <div class="sidebar-item glow" id="tab-about" role="tab" aria-selected="false" tabindex="0" data-tab="about">
+        <i class="fas fa-info-circle"></i> <span>เกี่ยวกับ</span>
+      </div>
+    </nav>
+    <div id="clock" class="clock"></div>
+  </aside>
 
   <main>
     <section id="home" class="tab-content active" role="tabpanel" aria-labelledby="tab-home">
-      <h2 id="welcome">🔥 ยินดีต้อนรับ! 🔥</h2>
-      <button class="ripple" data-action="playSoundAndAlert">
+      <h2 id="welcome"><span class="typed"></span></h2>
+      <button class="ripple glow pulse" data-action="playSoundAndAlert">
         <i class="fas fa-star"></i> คลิกเลย!
       </button>
     </section>
@@ -50,34 +61,64 @@
         <option value="en">English</option>
       </select>
 
-      <label id="theme-label" for="theme">ธีม:</label>
-      <select id="theme" data-action="setTheme">
-        <option value="dark">Dark Mode</option>
-        <option value="light">Light Mode</option>
-      </select>
+      <label id="sound-toggle-label" for="sound-toggle">เปิด/ปิดเสียง:</label>
+      <input type="checkbox" id="sound-toggle" data-action="toggleSound" checked>
 
-      <label id="bg-label" for="bg">เปลี่ยนพื้นหลัง:</label>
-      <label class="custom-file-input" for="bg">เลือกภาพ</label>
-      <input id="bg" type="file" accept="image/*" data-action="changeBackground">
+      <label id="volume-label" for="volume">ระดับเสียง:</label>
+      <input type="range" id="volume" min="0" max="1" step="0.1" value="1" data-action="setVolume">
+
+      <label id="ambient-label" for="ambient-toggle">เสียงแอมเบียนท์:</label>
+      <input type="checkbox" id="ambient-toggle" data-action="toggleAmbient">
+
+      <label id="bg-label" for="bg">เพิ่มพื้นหลัง:</label>
+      <label class="custom-file-input glow" for="bg">เลือกภาพ</label>
+      <input id="bg" type="file" accept="image/*" data-action="addBackground">
       <span id="bg-error" class="error-message">กรุณาเลือกไฟล์ภาพที่ถูกต้อง</span>
 
       <label id="sound-label" for="sound">เสียงกดปุ่ม:</label>
-      <label class="custom-file-input" for="sound">เลือกเสียง</label>
+      <label class="custom-file-input glow" for="sound">เลือกเสียง</label>
       <input id="sound" type="file" accept="audio/*" data-action="setClickSound">
       <span id="sound-error" class="error-message">กรุณาเลือกไฟล์เสียงที่ถูกต้อง</span>
+
+      <button class="ripple glow" data-action="exportSettings">ส่งออกการตั้งค่า</button>
+      <label class="custom-file-input glow" for="import-settings">นำเข้าการตั้งค่า</label>
+      <input id="import-settings" type="file" accept=".json" data-action="importSettings">
+      <span id="import-error" class="error-message">กรุณาเลือกไฟล์ JSON ที่ถูกต้อง</span>
     </section>
 
     <section id="about" class="tab-content" role="tabpanel" aria-labelledby="tab-about">
-      <h2><i class="fas fa-info-circle"></i> NexaGUI </h2>
-      <p>สร้างโดยนักพัฒนามือโปร 💻<br>ออกแบบเพื่อความสบายตาและปรับแต่งได้ 🌐🎵🖼</p>
+      <h2><i class="fas fa-info-circle"></i> เกี่ยวกับ NexaGUI</h2>
+      <p>สร้างโดยทีมนักพัฒนามือโปร 💻<br>ออกแบบเพื่อประสบการณ์สุดล้ำด้วยโหมดมืดและ UI อินเทอร์แอคทีฟ 🌐🎵🖼</p>
       <p>เวอร์ชัน: 1.0.0 | Powered by NexaGUI</p>
+      <div class="team-credits">
+        <h3>ทีมงาน</h3>
+        <ul>
+          <li>Xeno: UI/UX Designer</li>
+          <li>Xeno: Lead Developer</li>
+          <li>Xeno: Animator</li>
+        </ul>
+      </div>
+      <div class="timeline">
+        <h3>ประวัติการพัฒนา</h3>
+        <div class="timeline-item">
+          <span class="timeline-date">มิ.ย. 2568</span>
+          <p>เปิดตัว NexaGUI v1.0.0</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-date">พ.ค. 2568</span>
+          <p>เริ่มโปรเจกต์ NexaGUI</p>
+        </div>
+      </div>
     </section>
   </main>
 
+  <div id="notification-center" class="notification-center"></div>
   <audio id="clickSound" preload="auto"></audio>
+  <audio id="ambientSound" preload="auto" loop></audio>
 
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js"></script>
   <script src="js/config.js"></script>
   <script src="js/plugins.js"></script>
   <script src="js/app.js"></script>
