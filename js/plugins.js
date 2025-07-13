@@ -75,18 +75,25 @@ PLUGINS.register.push({
         const wallpapers = CONFIG.wallpapers.length > 0 ? CONFIG.wallpapers : CONFIG.defaultWallpapers;
         if (wallpapers.length === 0) return;
 
+        // แก้ไขกรณี wallpapers อาจเปลี่ยนระหว่างเรียกใช้
+        currentWallpaper = currentWallpaper % wallpapers.length;
+
+        const url = wallpapers[currentWallpaper];
         const img = new Image();
-        img.src = wallpapers[currentWallpaper];
+        img.src = url;
         img.onload = () => {
-          document.body.style.backgroundImage = `url(${wallpapers[currentWallpaper]})`;
+          document.body.style.backgroundImage = `url(${url})`;
           document.body.style.backgroundSize = 'cover';
           document.body.style.backgroundPosition = 'center';
           document.body.style.backgroundAttachment = 'fixed';
           gsap.fromTo(document.body, { opacity: 0.7 }, { opacity: 1, duration: 1, ease: 'power2.out' });
         };
         img.onerror = () => {
-          CONFIG.wallpapers.splice(currentWallpaper, 1);
-          localStorage.setItem('wallpapers', JSON.stringify(CONFIG.wallpapers));
+          // ลบ wallpaper ที่โหลดไม่ได้และอัปเดต localStorage
+          if (CONFIG.wallpapers.includes(url)) {
+            CONFIG.wallpapers = CONFIG.wallpapers.filter(wp => wp !== url);
+            localStorage.setItem('wallpapers', JSON.stringify(CONFIG.wallpapers));
+          }
         };
         currentWallpaper = (currentWallpaper + 1) % wallpapers.length;
       } catch (err) {
@@ -108,35 +115,46 @@ PLUGINS.register.push({
 
     const notificationQueue = [];
     const maxNotifications = 3;
+    let isAnimating = false;
+
+    // ฟังก์ชันแสดง notification ทีละตัวอย่างสมูท
+    const showNextNotification = () => {
+      if (notificationQueue.length === 0 || isAnimating) return;
+      isAnimating = true;
+      const msg = notificationQueue[0];
+
+      const notification = document.createElement('div');
+      notification.className = 'notification';
+      notification.textContent = msg;
+      notificationCenter.appendChild(notification);
+
+      gsap.fromTo(notification, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
+
+      setTimeout(() => {
+        gsap.to(notification, {
+          opacity: 0,
+          y: 20,
+          duration: 0.5,
+          ease: 'power2.in',
+          onComplete: () => {
+            notification.remove();
+            notificationQueue.shift();
+            isAnimating = false;
+            showNextNotification(); // แสดงตัวถัดไปถ้ามี
+          }
+        });
+      }, 3000);
+    };
 
     app.showNotification = (message) => {
       try {
-        notificationQueue.push(message);
-        if (notificationQueue.length > maxNotifications) {
+        if (!message || typeof message !== 'string') return;
+        if (notificationQueue.length >= maxNotifications) {
+          // ถ้าคิวเต็มให้ลบตัวเก่าสุดก่อน
           notificationQueue.shift();
         }
-
-        notificationCenter.innerHTML = '';
-        notificationQueue.forEach(msg => {
-          const notification = document.createElement('div');
-          notification.className = 'notification';
-          notification.textContent = msg;
-          notificationCenter.appendChild(notification);
-          gsap.fromTo(notification, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
-          setTimeout(() => {
-            gsap.to(notification, {
-              opacity: 0,
-              y: 20,
-              duration: 0.5,
-              ease: 'power2.in',
-              onComplete: () => {
-                notification.remove();
-                const index = notificationQueue.indexOf(msg);
-                if (index !== -1) notificationQueue.splice(index, 1);
-              }
-            });
-          }, 3000);
-        });
+        notificationQueue.push(message);
+        showNextNotification();
       } catch (err) {
         console.error(`Notification failed: ${err.message}`);
       }

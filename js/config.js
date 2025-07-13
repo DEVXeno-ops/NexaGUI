@@ -70,7 +70,7 @@ const CONFIG = {
       shape: { type: 'circle' },
       opacity: { value: 0.5, random: true },
       size: { value: 2, random: true },
-      line_linked: { enable: true, distance: 100, color: '#5b21b6', opacity: 0.3, width: 1 },
+      lineLinked: { enable: true, distance: 100, color: '#5b21b6', opacity: 0.3, width: 1 },
       move: { enable: true, speed: 1.5, direction: 'none', random: true }
     },
     interactivity: {
