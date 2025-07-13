@@ -1,23 +1,28 @@
 const PLUGINS = {
   register: [],
+  /**
+   * เรียกใช้ init ของ plugin ทั้งหมด และจับ error หากเกิดปัญหา
+   * @param {AppState} app 
+   */
   init(app) {
     this.register.forEach(plugin => {
       if (typeof plugin.init === 'function') {
         try {
           plugin.init(app);
         } catch (err) {
-          console.error(`Plugin initialization failed: ${err.message}`);
+          console.error(`Plugin initialization failed: ${err.message}`, err);
         }
       }
     });
   }
 };
 
-// Clock plugin
+// Plugin: นาฬิกา
 PLUGINS.register.push({
   init(app) {
     const clockEl = document.getElementById('clock');
     if (!clockEl) return;
+
     const updateClock = () => {
       try {
         const now = new Date();
@@ -28,16 +33,19 @@ PLUGINS.register.push({
         };
         clockEl.textContent = now.toLocaleString(app.currentLang === 'th' ? 'th-TH' : 'en-US', options);
       } catch (err) {
-        console.error(`Clock update failed: ${err.message}`);
+        console.error(`Clock update failed: ${err.message}`, err);
       }
     };
+
     updateClock();
     const intervalId = setInterval(updateClock, 1000);
-    app.eventListeners.set('clock-interval', () => clearInterval(intervalId));
+
+    // ลงทะเบียนฟังก์ชัน cleanup สำหรับล้าง interval
+    app.otherEventListeners.set('clock-interval', () => clearInterval(intervalId));
   }
 });
 
-// Typed.js welcome animation
+// Plugin: Typed.js animation แสดงข้อความต้อนรับ
 PLUGINS.register.push({
   init(app) {
     let typedInstance = null;
@@ -57,30 +65,31 @@ PLUGINS.register.push({
           loop: CONFIG.typedConfig.loop
         });
       } catch (err) {
-        console.error(`Typed.js initialization failed: ${err.message}`);
+        console.error(`Typed.js initialization failed: ${err.message}`, err);
       }
     };
 
     initTyped();
-    app.eventListeners.set('typed', initTyped);
+
+    // ลงทะเบียนสำหรับเรียกใหม่เมื่อต้องอัปเดตภาษา
+    app.otherEventListeners.set('typed', initTyped);
   }
 });
 
-// Wallpaper carousel
+// Plugin: สลับภาพพื้นหลังแบบ carousel
 PLUGINS.register.push({
   init(app) {
     let currentWallpaper = 0;
+
     const changeWallpaper = () => {
       try {
         const wallpapers = CONFIG.wallpapers.length > 0 ? CONFIG.wallpapers : CONFIG.defaultWallpapers;
         if (wallpapers.length === 0) return;
 
-        // แก้ไขกรณี wallpapers อาจเปลี่ยนระหว่างเรียกใช้
         currentWallpaper = currentWallpaper % wallpapers.length;
-
         const url = wallpapers[currentWallpaper];
         const img = new Image();
-        img.src = url;
+
         img.onload = () => {
           document.body.style.backgroundImage = `url(${url})`;
           document.body.style.backgroundSize = 'cover';
@@ -88,26 +97,32 @@ PLUGINS.register.push({
           document.body.style.backgroundAttachment = 'fixed';
           gsap.fromTo(document.body, { opacity: 0.7 }, { opacity: 1, duration: 1, ease: 'power2.out' });
         };
+
         img.onerror = () => {
-          // ลบ wallpaper ที่โหลดไม่ได้และอัปเดต localStorage
+          // ลบ wallpaper ที่โหลดไม่ได้ เพื่อป้องกัน error ซ้ำ
           if (CONFIG.wallpapers.includes(url)) {
             CONFIG.wallpapers = CONFIG.wallpapers.filter(wp => wp !== url);
             localStorage.setItem('wallpapers', JSON.stringify(CONFIG.wallpapers));
           }
+          console.warn(`Failed to load wallpaper: ${url}`);
         };
+
+        img.src = url;
+
         currentWallpaper = (currentWallpaper + 1) % wallpapers.length;
       } catch (err) {
-        console.error(`Wallpaper change failed: ${err.message}`);
+        console.error(`Wallpaper change failed: ${err.message}`, err);
       }
     };
 
     changeWallpaper();
+
     const intervalId = setInterval(changeWallpaper, 30000);
-    app.eventListeners.set('wallpaper-interval', () => clearInterval(intervalId));
+    app.otherEventListeners.set('wallpaper-interval', () => clearInterval(intervalId));
   }
 });
 
-// Notification center
+// Plugin: ระบบ Notification Center
 PLUGINS.register.push({
   init(app) {
     const notificationCenter = document.getElementById('notification-center');
@@ -117,18 +132,23 @@ PLUGINS.register.push({
     const maxNotifications = 3;
     let isAnimating = false;
 
-    // ฟังก์ชันแสดง notification ทีละตัวอย่างสมูท
+    /**
+     * แสดง notification ถัดไปจากคิว (ถ้ามี)
+     */
     const showNextNotification = () => {
       if (notificationQueue.length === 0 || isAnimating) return;
       isAnimating = true;
-      const msg = notificationQueue[0];
 
+      const msg = notificationQueue[0];
       const notification = document.createElement('div');
       notification.className = 'notification';
       notification.textContent = msg;
       notificationCenter.appendChild(notification);
 
-      gsap.fromTo(notification, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
+      gsap.fromTo(notification, 
+        { opacity: 0, y: 20 }, 
+        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
+      );
 
       setTimeout(() => {
         gsap.to(notification, {
@@ -140,23 +160,24 @@ PLUGINS.register.push({
             notification.remove();
             notificationQueue.shift();
             isAnimating = false;
-            showNextNotification(); // แสดงตัวถัดไปถ้ามี
+            showNextNotification();
           }
         });
       }, 3000);
     };
 
+    // ฟังก์ชันสำหรับเรียกแจ้งเตือนจากภายนอก
     app.showNotification = (message) => {
       try {
         if (!message || typeof message !== 'string') return;
         if (notificationQueue.length >= maxNotifications) {
-          // ถ้าคิวเต็มให้ลบตัวเก่าสุดก่อน
+          // ถ้าคิวเต็ม ลบ notification ตัวเก่าสุดก่อนเพิ่มใหม่
           notificationQueue.shift();
         }
         notificationQueue.push(message);
         showNextNotification();
       } catch (err) {
-        console.error(`Notification failed: ${err.message}`);
+        console.error(`Notification failed: ${err.message}`, err);
       }
     };
   }

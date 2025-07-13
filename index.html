@@ -5,21 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="NexaGUI: A futuristic, eye-friendly NW.js GUI with immersive UI and dark mode" />
   <title>NexaGUI</title>
+  
+  <!-- Fonts & Icons -->
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    rel="stylesheet"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  
+  <!-- Main Stylesheet -->
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
+  <!-- Background particles effect (decorative, aria-hidden) -->
   <div id="particles-js" aria-hidden="true"></div>
 
-  <div id="loading" class="loading" role="status" aria-live="polite" aria-label="Loading content">
+  <!-- Loading Screen -->
+  <div
+    id="loading"
+    class="loading"
+    role="status"
+    aria-live="polite"
+    aria-label="Loading content"
+  >
     <div class="spinner" aria-hidden="true"></div>
   </div>
 
-  <div id="quick-settings" class="quick-settings" role="region" aria-label="Quick Settings">
+  <!-- Quick Settings Panel -->
+  <aside
+    id="quick-settings"
+    class="quick-settings"
+    role="region"
+    aria-label="Quick Settings"
+  >
     <button
       class="quick-btn glow"
       data-action="toggleTheme"
@@ -56,56 +79,78 @@
     >
       <i class="fas fa-headphones" aria-hidden="true"></i>
     </button>
-  </div>
+  </aside>
 
-  <aside class="sidebar" role="complementary" aria-label="Sidebar navigation">
+  <!-- Sidebar Navigation -->
+  <nav
+    class="sidebar"
+    role="navigation"
+    aria-label="Sidebar navigation"
+  >
     <h1 id="title" aria-label="NexaGUI">NexaGUI</h1>
-    <nav class="sidebar-nav" role="tablist" aria-label="Primary Navigation Tabs">
-      <div
+    <div
+      class="sidebar-nav"
+      role="tablist"
+      aria-label="Primary Navigation Tabs"
+    >
+      <button
         class="sidebar-item active glow"
         id="tab-home"
         role="tab"
         aria-selected="true"
         tabindex="0"
         data-tab="home"
+        type="button"
       >
         <i class="fas fa-home" aria-hidden="true"></i>
         <span>หน้าหลัก</span>
-      </div>
-      <div
+      </button>
+      <button
         class="sidebar-item glow"
         id="tab-settings"
         role="tab"
         aria-selected="false"
         tabindex="-1"
         data-tab="settings"
+        type="button"
       >
         <i class="fas fa-cog" aria-hidden="true"></i>
         <span>ตั้งค่า</span>
-      </div>
-      <div
+      </button>
+      <button
         class="sidebar-item glow"
         id="tab-about"
         role="tab"
         aria-selected="false"
         tabindex="-1"
         data-tab="about"
+        type="button"
       >
         <i class="fas fa-info-circle" aria-hidden="true"></i>
         <span>เกี่ยวกับ</span>
-      </div>
-    </nav>
-    <div id="clock" class="clock" aria-live="polite" aria-atomic="true" role="timer" aria-label="Current time"></div>
-  </aside>
+      </button>
+    </div>
+    <time
+      id="clock"
+      class="clock"
+      aria-live="polite"
+      aria-atomic="true"
+      role="timer"
+      aria-label="Current time"
+      datetime=""
+    ></time>
+  </nav>
 
+  <!-- Main Content -->
   <main>
+    <!-- Home Tab Panel -->
     <section
       id="home"
       class="tab-content active"
       role="tabpanel"
       aria-labelledby="tab-home"
       tabindex="0"
-      hidden={false}
+      hidden="false"
     >
       <h2 id="welcome" aria-live="polite" aria-atomic="true">
         <span class="typed"></span>
@@ -120,6 +165,7 @@
       </button>
     </section>
 
+    <!-- Settings Tab Panel -->
     <section
       id="settings"
       class="tab-content"
@@ -131,7 +177,12 @@
       <h2 id="setting-title">การตั้งค่า</h2>
 
       <label id="lang-label" for="lang">ภาษา:</label>
-      <select id="lang" data-action="setLang" aria-describedby="lang-label" aria-required="true">
+      <select
+        id="lang"
+        data-action="setLang"
+        aria-describedby="lang-label"
+        aria-required="true"
+      >
         <option value="th">ไทย</option>
         <option value="en">English</option>
       </select>
@@ -166,7 +217,14 @@
       />
 
       <label id="bg-label" for="bg">เพิ่มพื้นหลัง:</label>
-      <label class="custom-file-input glow" for="bg" tabindex="0" role="button">เลือกภาพ</label>
+      <label
+        class="custom-file-input glow"
+        for="bg"
+        tabindex="0"
+        role="button"
+      >
+        เลือกภาพ
+      </label>
       <input
         id="bg"
         type="file"
@@ -175,12 +233,25 @@
         aria-describedby="bg-label"
         aria-invalid="false"
       />
-      <span id="bg-error" class="error-message" aria-live="assertive" role="alert" hidden>
+      <span
+        id="bg-error"
+        class="error-message"
+        aria-live="assertive"
+        role="alert"
+        hidden
+      >
         กรุณาเลือกไฟล์ภาพที่ถูกต้อง
       </span>
 
       <label id="sound-label" for="sound">เสียงกดปุ่ม:</label>
-      <label class="custom-file-input glow" for="sound" tabindex="0" role="button">เลือกเสียง</label>
+      <label
+        class="custom-file-input glow"
+        for="sound"
+        tabindex="0"
+        role="button"
+      >
+        เลือกเสียง
+      </label>
       <input
         id="sound"
         type="file"
@@ -189,13 +260,20 @@
         aria-describedby="sound-label"
         aria-invalid="false"
       />
-      <span id="sound-error" class="error-message" aria-live="assertive" role="alert" hidden>
+      <span
+        id="sound-error"
+        class="error-message"
+        aria-live="assertive"
+        role="alert"
+        hidden
+      >
         กรุณาเลือกไฟล์เสียงที่ถูกต้อง
       </span>
 
       <button class="ripple glow" data-action="exportSettings" type="button">
         ส่งออกการตั้งค่า
       </button>
+
       <label
         class="custom-file-input glow"
         for="import-settings"
@@ -212,11 +290,18 @@
         data-action="importSettings"
         aria-describedby="import-error"
       />
-      <span id="import-error" class="error-message" aria-live="assertive" role="alert" hidden>
+      <span
+        id="import-error"
+        class="error-message"
+        aria-live="assertive"
+        role="alert"
+        hidden
+      >
         กรุณาเลือกไฟล์ JSON ที่ถูกต้อง
       </span>
     </section>
 
+    <!-- About Tab Panel -->
     <section
       id="about"
       class="tab-content"
@@ -233,28 +318,29 @@
         ออกแบบเพื่อประสบการณ์สุดล้ำด้วยโหมดมืดและ UI อินเทอร์แอคทีฟ 🌐🎵🖼
       </p>
       <p>เวอร์ชัน: 1.0.0 | Powered by NexaGUI</p>
-      <div class="team-credits">
+      <section class="team-credits" aria-label="Team credits">
         <h3>ทีมงาน</h3>
         <ul>
           <li>Xeno: UI/UX Designer</li>
           <li>Xeno: Lead Developer</li>
           <li>Xeno: Animator</li>
         </ul>
-      </div>
-      <div class="timeline">
+      </section>
+      <section class="timeline" aria-label="Development timeline">
         <h3>ประวัติการพัฒนา</h3>
-        <div class="timeline-item">
-          <span class="timeline-date">มิ.ย. 2568</span>
+        <article class="timeline-item">
+          <time class="timeline-date" datetime="2025-06">มิ.ย. 2568</time>
           <p>เปิดตัว NexaGUI v1.0.0</p>
-        </div>
-        <div class="timeline-item">
-          <span class="timeline-date">พ.ค. 2568</span>
+        </article>
+        <article class="timeline-item">
+          <time class="timeline-date" datetime="2025-05">พ.ค. 2568</time>
           <p>เริ่มโปรเจกต์ NexaGUI</p>
-        </div>
-      </div>
+        </article>
+      </section>
     </section>
   </main>
 
+  <!-- Notification Center -->
   <div
     id="notification-center"
     class="notification-center"
@@ -264,14 +350,18 @@
     aria-label="Notification Center"
   ></div>
 
+  <!-- Audio Elements -->
   <audio id="clickSound" preload="auto" aria-hidden="true"></audio>
   <audio id="ambientSound" preload="auto" loop aria-hidden="true"></audio>
 
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js"></script>
-  <script src="js/config.js"></script>
-  <script src="js/plugins.js"></script>
-  <script src="js/app.js"></script>
+  <!-- External Scripts -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" defer></script>
+
+  <!-- Local Scripts -->
+  <script src="js/config.js" defer></script>
+  <script src="js/plugins.js" defer></script>
+  <script src="js/app.js" defer></script>
 </body>
 </html>

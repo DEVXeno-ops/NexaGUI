@@ -61,8 +61,11 @@ const CONFIG = {
       }
     }
   },
+
   defaultLang: 'th',
   defaultTheme: 'dark',
+
+  // Configuration สำหรับ particles.js
   particlesConfig: {
     particles: {
       number: { value: 80, density: { enable: true, value_area: 800 } },
@@ -75,20 +78,39 @@ const CONFIG = {
     },
     interactivity: {
       detect_on: 'canvas',
-      events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: true, mode: 'push' } },
-      modes: { grab: { distance: 180, line_linked: { opacity: 0.7 } }, push: { particles_nb: 3 } }
+      events: {
+        onhover: { enable: true, mode: 'grab' },
+        onclick: { enable: true, mode: 'push' }
+      },
+      modes: {
+        grab: { distance: 180, line_linked: { opacity: 0.7 } },
+        push: { particles_nb: 3 }
+      }
     }
   },
+
+  // การตั้งค่า Typed.js สำหรับ effect พิมพ์ข้อความ
   typedConfig: {
     strings: {
-      th: ['🔥 ยินดีต้อนรับสู่ NexaGUI! 🔥', 'สัมผัส UI สุดล้ำแห่งอนาคต', 'ปรับแต่งได้ตามใจคุณ'],
-      en: ['🔥 Welcome to NexaGUI! 🔥', 'Experience the Future of UI', 'Customize Your Way']
+      th: [
+        '🔥 ยินดีต้อนรับสู่ NexaGUI! 🔥',
+        'สัมผัส UI สุดล้ำแห่งอนาคต',
+        'ปรับแต่งได้ตามใจคุณ'
+      ],
+      en: [
+        '🔥 Welcome to NexaGUI! 🔥',
+        'Experience the Future of UI',
+        'Customize Your Way'
+      ]
     },
     typeSpeed: 50,
     backSpeed: 30,
     loop: true
   },
-  wallpapers: [], // Populated dynamically
+
+  wallpapers: [], // เก็บ wallpapers ที่โหลดเพิ่มหรือเลือกใช้งานภายหลัง
+
+  // wallpapers เริ่มต้น สำหรับพื้นหลัง (background)
   defaultWallpapers: [
     'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920',
     'https://images.unsplash.com/photo-1511300636408-a63a2d319610?auto=format&fit=crop&w=1920'
