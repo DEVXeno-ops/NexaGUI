@@ -1,118 +1,105 @@
-const CONFIG = {
+// js/config.js
+export const CONFIG = {
+  defaultLang: 'th',
+  defaultTheme: 'dark',
+  defaultWallpapers: [],
   langData: {
     th: {
-      title: 'NexaGUI',
-      welcome: '🔥 ยินดีต้อนรับสู่ NexaGUI! 🔥',
-      'tab-home': 'หน้าหลัก',
-      'tab-settings': 'ตั้งค่า',
-      'tab-about': 'เกี่ยวกับ',
-      'setting-title': 'การตั้งค่า',
+      'app-title': 'NexaGUI',
+      'tab-home-label': 'หน้าหลัก',
+      'tab-settings-label': 'ตั้งค่า',
+      'tab-about-label': 'เกี่ยวกับ',
+      'settings-title': 'การตั้งค่า',
       'lang-label': 'ภาษา:',
       'sound-toggle-label': 'เปิด/ปิดเสียง:',
       'volume-label': 'ระดับเสียง:',
-      'ambient-label': 'เสียงแอมเบียนท์:',
+      'ambient-toggle-label': 'เสียงแอมเบียนท์:',
       'bg-label': 'เพิ่มพื้นหลัง:',
       'sound-label': 'เสียงกดปุ่ม:',
+      'ambient-sound-label': 'เสียงแอมเบียนท์:',
+      'bg-error': 'กรุณาเลือกไฟล์ภาพที่ถูกต้อง',
+      'sound-error': 'กรุณาเลือกไฟล์เสียงที่ถูกต้อง',
+      'ambient-sound-error': 'กรุณาเลือกไฟล์เสียงที่ถูกต้อง',
       'export-settings': 'ส่งออกการตั้งค่า',
-      'import-settings': 'นำเข้าการตั้งค่า',
+      'import-settings-label': 'นำเข้าการตั้งค่า',
+      'import-error': 'กรุณาเลือกไฟล์ JSON ที่ถูกต้อง',
       notifications: {
-        langChanged: 'เปลี่ยนภาษาเรียบร้อย!',
-        themeChanged: 'เปลี่ยนธีมเรียบร้อย!',
-        soundToggledOn: 'เสียงเปิด!',
-        soundToggledOff: 'เสียงปิด!',
-        ambientToggledOn: 'เสียงแอมเบียนท์เปิด!',
-        ambientToggledOff: 'เสียงแอมเบียนท์ปิด!',
-        volumeAdjusted: 'ปรับระดับเสียงเรียบร้อย!',
-        clickSoundSet: 'ตั้งค่าเสียงกดปุ่มเรียบร้อย!',
-        backgroundAdded: 'เพิ่มพื้นหลังเรียบร้อย!',
-        settingsExported: 'ส่งออกการตั้งค่าเรียบร้อย!',
-        settingsImported: 'นำเข้าการตั้งค่าเรียบร้อย!',
-        actionCompleted: 'คุณกดปุ่มแล้ว! 🎉'
+        langChanged: 'เปลี่ยนภาษาเรียบร้อยแล้ว',
+        themeChanged: 'เปลี่ยนธีมเรียบร้อยแล้ว',
+        soundToggledOn: 'เปิดเสียงแล้ว',
+        soundToggledOff: 'ปิดเสียงแล้ว',
+        ambientToggledOn: 'เปิดเสียงแอมเบียนท์แล้ว',
+        ambientToggledOff: 'ปิดเสียงแอมเบียนท์แล้ว',
+        volumeAdjusted: 'ปรับระดับเสียงเรียบร้อยแล้ว',
+        clickSoundSet: 'ตั้งค่าเสียงกดปุ่มเรียบร้อยแล้ว',
+        ambientSoundSet: 'ตั้งค่าเสียงแอมเบียนท์เรียบร้อยแล้ว',
+        backgroundAdded: 'เพิ่มพื้นหลังเรียบร้อยแล้ว',
+        settingsExported: 'ส่งออกการตั้งค่าเรียบร้อยแล้ว',
+        settingsImported: 'นำเข้าการตั้งค่าเรียบร้อยแล้ว',
+        invalidFile: 'ไฟล์ไม่ถูกต้อง',
+        error: 'เกิดข้อผิดพลาด'
       }
     },
     en: {
-      title: 'NexaGUI',
-      welcome: '🔥 Welcome to NexaGUI! 🔥',
-      'tab-home': 'Home',
-      'tab-settings': 'Settings',
-      'tab-about': 'About',
-      'setting-title': 'Settings',
+      'app-title': 'NexaGUI',
+      'tab-home-label': 'Home',
+      'tab-settings-label': 'Settings',
+      'tab-about-label': 'About',
+      'settings-title': 'Settings',
       'lang-label': 'Language:',
       'sound-toggle-label': 'Sound On/Off:',
       'volume-label': 'Volume:',
-      'ambient-label': 'Ambient Sound:',
+      'ambient-toggle-label': 'Ambient Sound:',
       'bg-label': 'Add Background:',
       'sound-label': 'Click Sound:',
+      'ambient-sound-label': 'Ambient Sound:',
+      'bg-error': 'Please select a valid image file',
+      'sound-error': 'Please select a valid audio file',
+      'ambient-sound-error': 'Please select a valid audio file',
       'export-settings': 'Export Settings',
-      'import-settings': 'Import Settings',
+      'import-settings-label': 'Import Settings',
+      'import-error': 'Please select a valid JSON file',
       notifications: {
-        langChanged: 'Language changed!',
-        themeChanged: 'Theme changed!',
-        soundToggledOn: 'Sound on!',
-        soundToggledOff: 'Sound off!',
-        ambientToggledOn: 'Ambient sound on!',
-        ambientToggledOff: 'Ambient sound off!',
-        volumeAdjusted: 'Volume adjusted!',
-        clickSoundSet: 'Click sound set!',
-        backgroundAdded: 'Background added!',
-        settingsExported: 'Settings exported!',
-        settingsImported: 'Settings imported!',
-        actionCompleted: 'You clicked the button! 🎉'
+        langChanged: 'Language changed successfully',
+        themeChanged: 'Theme changed successfully',
+        soundToggledOn: 'Sound enabled',
+        soundToggledOff: 'Sound disabled',
+        ambientToggledOn: 'Ambient sound enabled',
+        ambientToggledOff: 'Ambient sound disabled',
+        volumeAdjusted: 'Volume adjusted successfully',
+        clickSoundSet: 'Click sound set successfully',
+        ambientSoundSet: 'Ambient sound set successfully',
+        backgroundAdded: 'Background added successfully',
+        settingsExported: 'Settings exported successfully',
+        settingsImported: 'Settings imported successfully',
+        invalidFile: 'Invalid file',
+        error: 'An error occurred'
       }
     }
   },
-
-  defaultLang: 'th',
-  defaultTheme: 'dark',
-
-  // Configuration สำหรับ particles.js
   particlesConfig: {
     particles: {
-      number: { value: 80, density: { enable: true, value_area: 800 } },
-      color: { value: '#5b21b6' },
+      number: { value: 40, density: { enable: true, value_area: 1000 } },
+      color: { value: '#ffffff' },
       shape: { type: 'circle' },
-      opacity: { value: 0.5, random: true },
+      opacity: { value: 0.3, random: true },
       size: { value: 2, random: true },
-      lineLinked: { enable: true, distance: 100, color: '#5b21b6', opacity: 0.3, width: 1 },
-      move: { enable: true, speed: 1.5, direction: 'none', random: true }
+      line_linked: { enable: false },
+      move: { enable: true, speed: 1, direction: 'none', random: true, out_mode: 'out' }
     },
     interactivity: {
       detect_on: 'canvas',
-      events: {
-        onhover: { enable: true, mode: 'grab' },
-        onclick: { enable: true, mode: 'push' }
-      },
-      modes: {
-        grab: { distance: 180, line_linked: { opacity: 0.7 } },
-        push: { particles_nb: 3 }
-      }
-    }
+      events: { onhover: { enable: false }, onclick: { enable: false }, resize: true }
+    },
+    retina_detect: true
   },
-
-  // การตั้งค่า Typed.js สำหรับ effect พิมพ์ข้อความ
   typedConfig: {
     strings: {
-      th: [
-        '🔥 ยินดีต้อนรับสู่ NexaGUI! 🔥',
-        'สัมผัส UI สุดล้ำแห่งอนาคต',
-        'ปรับแต่งได้ตามใจคุณ'
-      ],
-      en: [
-        '🔥 Welcome to NexaGUI! 🔥',
-        'Experience the Future of UI',
-        'Customize Your Way'
-      ]
+      th: ['ยินดีต้อนรับสู่ NexaGUI', 'ปรับแต่ง UI ได้ตามใจ', 'สัมผัสอนาคตของ UX'],
+      en: ['Welcome to NexaGUI', 'Customize Your UI', 'Experience the Future of UX']
     },
-    typeSpeed: 50,
+    typeSpeed: 60,
     backSpeed: 30,
     loop: true
-  },
-
-  wallpapers: [], // เก็บ wallpapers ที่โหลดเพิ่มหรือเลือกใช้งานภายหลัง
-
-  // wallpapers เริ่มต้น สำหรับพื้นหลัง (background)
-  defaultWallpapers: [
-    'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920',
-    'https://images.unsplash.com/photo-1511300636408-a63a2d319610?auto=format&fit=crop&w=1920'
-  ]
+  }
 };
