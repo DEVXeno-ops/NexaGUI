@@ -54,8 +54,10 @@ body.no-custom-cursor {
   cursor: auto;
 }
 
-button, select, input, [role="button"] {
-  cursor: pointer !important;
+/* cursor pointer เฉพาะปุ่มและ role="button" */
+button, [role="button"] {
+  cursor: pointer;
+  touch-action: manipulation;
 }
 
 .custom-cursor {
@@ -158,6 +160,7 @@ button, select, input, [role="button"] {
 
 .sidebar-item:focus-visible {
   outline: 2px solid var(--focus);
+  outline-offset: 2px;
 }
 
 .clock {
@@ -217,72 +220,31 @@ main {
   padding: 0.5rem;
   border-radius: 6px;
   transition: all var(--transition);
+  cursor: pointer;
 }
 
 .quick-btn:hover,
 .quick-btn:focus-visible {
   background: var(--hover);
   transform: scale(1.1);
+  outline: none;
 }
 
-.form-group {
-  margin-bottom: 1rem;
-  max-width: 280px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-label {
-  display: block;
-  font-size: 0.95rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-}
-
-select, input[type="range"], .btn, .file-input {
+.btn,
+.file-input {
   width: 100%;
   padding: 0.75rem;
   border-radius: var(--border-radius);
-  background: var(--accent);
-  color: var(--text);
-  border: none;
-  font-size: 0.95rem;
-  transition: all var(--transition);
-}
-
-select {
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg fill='%23f5f3ff' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-  background-position: right 0.75rem center;
-  background-repeat: no-repeat;
-  background-size: 1em;
-}
-
-[data-theme="light"] select {
-  background-image: url("data:image/svg+xml,%3Csvg fill='%231f2937' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-}
-
-input[type="range"] {
-  height: 6px;
-  background: var(--hover);
-  border-radius: 3px;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 14px;
-  height: 14px;
-  background: var(--primary);
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.btn {
   background: var(--primary);
   color: var(--text);
   font-weight: 600;
-  position: relative;
-  overflow: hidden;
+  font-size: 0.95rem;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  transition: all var(--transition);
+  display: block;
 }
 
 .btn.glow:hover,
@@ -291,10 +253,20 @@ input[type="range"]::-webkit-slider-thumb {
 .file-input.glow:focus-visible {
   box-shadow: 0 0 10px var(--primary);
   transform: translateY(-2px);
+  outline: none;
+}
+
+.btn.glow:focus-visible,
+.file-input.glow:focus-visible,
+.quick-btn:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
 }
 
 .btn.pulse {
   animation: pulse 2s infinite ease-in-out;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn::after {
@@ -313,24 +285,79 @@ input[type="range"]::-webkit-slider-thumb {
   animation: ripple 0.5s ease-out;
 }
 
+.file-input {
+  background: var(--accent);
+  color: var(--text);
+}
+
 input[type="file"] {
   display: none;
 }
 
-.file-input {
+.form-group {
+  margin-bottom: 1rem;
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+label {
   display: block;
-  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+select,
+input[type="range"] {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: var(--border-radius);
+  background: var(--accent);
+  color: var(--text);
+  border: none;
+  font-size: 0.95rem;
+  transition: all var(--transition);
+  appearance: none;
+  cursor: pointer;
+}
+
+select {
+  background-image: url("data:image/svg+xml,%3Csvg fill='%23f5f3ff' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-position: right 0.75rem center;
+  background-repeat: no-repeat;
+  background-size: 1em;
+}
+
+[data-theme="light"] select {
+  background-image: url("data:image/svg+xml,%3Csvg fill='%231f2937' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+}
+
+input[type="range"] {
+  height: 6px;
+  background: var(--hover);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  background: var(--primary);
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 .error-message {
   color: var(--error);
   font-size: 0.85rem;
   margin-top: 0.5rem;
-  display: none;
 }
 
-.error-message:not([hidden]) {
-  display: block;
+.error-message[hidden] {
+  display: none;
 }
 
 .notification-center {
@@ -352,6 +379,7 @@ input[type="file"] {
   box-shadow: var(--shadow);
   opacity: 0;
   transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .notification.info {
@@ -362,7 +390,8 @@ input[type="file"] {
   background: var(--error);
 }
 
-.team-credits, .timeline {
+.team-credits,
+.timeline {
   margin-top: 1.5rem;
   max-width: 480px;
   margin-left: auto;
@@ -411,16 +440,28 @@ input[type="file"] {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes ripple {
-  to { width: 200px; height: 200px; opacity: 0; }
+  to {
+    width: 200px;
+    height: 200px;
+    opacity: 0;
+  }
 }
 
 @keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
 }
 
 @media (max-width: 768px) {
