@@ -5,11 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="NexaGUI: Futuristic, accessible, and customizable NW.js interface">
   <title>NexaGUI</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <style>
+    body {
+      font-family: 'Inter', 'Sarabun', sans-serif;
+    }
+  </style>
 </head>
 <body>
+  <noscript>
+    <div class="noscript-warning">⚠ จำเป็นต้องเปิด JavaScript เพื่อใช้งาน NexaGUI</div>
+  </noscript>
+
   <div id="particles-js" aria-hidden="true"></div>
   <div id="loading" class="loading" role="status" aria-live="polite" aria-label="Loading NexaGUI">
     <div class="spinner" aria-hidden="true"></div>
@@ -49,21 +59,22 @@
     <time id="clock" class="clock" role="timer" aria-live="polite" datetime=""></time>
   </nav>
 
-  <main role="main">
+  <main id="main" role="main" aria-label="Main content">
     <section id="home-panel" class="tab-content active" role="tabpanel" aria-labelledby="tab-home" tabindex="0">
       <h2 id="welcome" aria-live="polite"><span class="typed"></span></h2>
       <button class="btn glow pulse" data-action="play-action" aria-label="Interact with NexaGUI" type="button">
         <i class="fas fa-star" aria-hidden="true"></i> คลิกเลย!
       </button>
     </section>
+
     <section id="settings-panel" class="tab-content" role="tabpanel" aria-labelledby="tab-settings" tabindex="0" hidden>
       <h2 id="settings-title">การตั้งค่า</h2>
       <form id="settings-form" aria-label="Application settings">
         <div class="form-group">
           <label for="lang" id="lang-label"><span class="sr-only">Language</span>ภาษา:</label>
           <select id="lang" data-action="set-lang" aria-describedby="lang-label">
-            <option value="th">ไทย</option>
-            <option value="en">English</option>
+            <option value="th" lang="th">ไทย</option>
+            <option value="en" lang="en">English</option>
           </select>
         </div>
         <div class="form-group">
@@ -80,30 +91,31 @@
         </div>
         <div class="form-group">
           <label for="bg" id="bg-label"><span class="sr-only">Background image</span>เพิ่มพื้นหลัง:</label>
-          <label class="file-input glow" for="bg" role="button" tabindex="0" aria-label="Choose background image">เลือกภาพ</label>
+          <span class="file-input glow" role="button" tabindex="0" aria-label="Choose background image" onclick="document.getElementById('bg').click()">เลือกภาพ</span>
           <input type="file" id="bg" accept="image/*" data-action="set-background" aria-describedby="bg-label bg-error" hidden>
           <span id="bg-error" class="error-message" role="alert" aria-live="assertive" hidden>กรุณาเลือกไฟล์ภาพที่ถูกต้อง</span>
         </div>
         <div class="form-group">
           <label for="sound" id="sound-label"><span class="sr-only">Click sound</span>เสียงกดปุ่ม:</label>
-          <label class="file-input glow" for="sound" role="button" tabindex="0" aria-label="Choose click sound">เลือกเสียง</label>
+          <span class="file-input glow" role="button" tabindex="0" aria-label="Choose click sound" onclick="document.getElementById('sound').click()">เลือกเสียง</span>
           <input type="file" id="sound" accept="audio/*" data-action="set-click-sound" aria-describedby="sound-label sound-error" hidden>
           <span id="sound-error" class="error-message" role="alert" aria-live="assertive" hidden>กรุณาเลือกไฟล์เสียงที่ถูกต้อง</span>
         </div>
         <div class="form-group">
           <label for="ambient-sound" id="ambient-sound-label"><span class="sr-only">Ambient sound</span>เสียงแอมเบียนท์:</label>
-          <label class="file-input glow" for="ambient-sound" role="button" tabindex="0" aria-label="Choose ambient sound">เลือกเสียง</label>
+          <span class="file-input glow" role="button" tabindex="0" aria-label="Choose ambient sound" onclick="document.getElementById('ambient-sound').click()">เลือกเสียง</span>
           <input type="file" id="ambient-sound" accept="audio/*" data-action="set-ambient-sound" aria-describedby="ambient-sound-label ambient-sound-error" hidden>
           <span id="ambient-sound-error" class="error-message" role="alert" aria-live="assertive" hidden>กรุณาเลือกไฟล์เสียงที่ถูกต้อง</span>
         </div>
         <div class="form-group">
           <button class="btn glow" data-action="export-settings" type="button">ส่งออกการตั้งค่า</button>
-          <label class="file-input glow" for="import-settings" role="button" tabindex="0" aria-label="Import settings">นำเข้าการตั้งค่า</label>
+          <span class="file-input glow" role="button" tabindex="0" aria-label="Import settings" onclick="document.getElementById('import-settings').click()">นำเข้าการตั้งค่า</span>
           <input type="file" id="import-settings" accept=".json" data-action="import-settings" aria-describedby="import-settings-label import-error" hidden>
           <span id="import-error" class="error-message" role="alert" aria-live="assertive" hidden>กรุณาเลือกไฟล์ JSON ที่ถูกต้อง</span>
         </div>
       </form>
     </section>
+
     <section id="about-panel" class="tab-content" role="tabpanel" aria-labelledby="tab-about" tabindex="0" hidden>
       <h2><i class="fas fa-info-circle" aria-hidden="true"></i> เกี่ยวกับ NexaGUI</h2>
       <p>ออกแบบเพื่อประสบการณ์สุดล้ำด้วย UI อินเทอร์แอคทีฟและโหมดมืด 🌐🎵🖼</p>
